@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MovieMind AI | Intelligent Movie Recommendation System</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(-45deg,#0f0c29,#302b63,#24243e,#0f172a);
+    background-size:400% 400%;
+    animation:gradientBG 12s ease infinite;
+    color:white;
+    padding:40px;
+}
+
+@keyframes gradientBG{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.container{
+    max-width:1300px;
+    margin:auto;
+}
+
+.hero{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.title{
+    font-size:4rem;
+    font-weight:700;
+    background:linear-gradient(90deg,#ffffff,#ff4d6d);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.subtitle{
+    margin-top:10px;
+    font-size:18px;
+    color:#d1d5db;
+}
+
+.stats{
+    margin-top:15px;
+    color:#94a3b8;
+    font-size:15px;
+}
+
+.search-box{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    padding:25px;
+    border-radius:20px;
+    margin-bottom:45px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.3);
+}
+
+input{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    font-size:15px;
+    margin-bottom:15px;
+    outline:none;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#e50914;
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:translateY(-3px);
+    background:#ff1f2f;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:20px;
+    font-size:2rem;
+}
+
+.selected-movie{
+    text-align:center;
+    margin-bottom:12px;
+    color:#cbd5e1;
+}
+
+.rec-count{
+    text-align:center;
+    margin-bottom:25px;
+    color:#94a3b8;
+}
+
+.movie-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:30px;
+    margin-top:40px;
+}
+
+.movie-card{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(12px);
+    border-radius:18px;
+    overflow:hidden;
+    transition:all 0.4s ease;
+    text-align:center;
+    box-shadow:0 8px 25px rgba(0,0,0,0.35);
+    position:relative;
+}
+
+.movie-card:hover{
+    transform:translateY(-10px) scale(1.03);
+    box-shadow:0 15px 35px rgba(255,0,80,0.35);
+}
+
+.movie-card img{
+    width:100%;
+    height:340px;
+    object-fit:cover;
+    transition:0.4s;
+}
+
+.movie-card:hover img{
+    transform:scale(1.08);
+}
+
+.movie-info{
+    padding:18px;
+}
+
+.movie-title{
+    font-size:16px;
+    font-weight:600;
+    line-height:1.5;
+    min-height:55px;
+}
+
+.movie-year{
+    color:#cbd5e1;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.badge{
+    display:inline-block;
+    margin-top:12px;
+    padding:6px 14px;
+    background:linear-gradient(90deg,#ff004f,#ff4d4d);
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.movie-card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:linear-gradient(
+        to top,
+        rgba(0,0,0,0.7),
+        transparent
+    );
+    opacity:0;
+    transition:0.4s;
+}
+
+.movie-card:hover::before{
+    opacity:1;
+}
+
+footer{
+    margin-top:70px;
+    text-align:center;
+    padding:25px;
+    color:#94a3b8;
+    font-size:14px;
+    border-top:1px solid rgba(255,255,255,0.1);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="hero">
+
+        <h1 class="title">
+            🎬 MovieMind AI
+        </h1>
+
+        <p class="subtitle">
+            Intelligent Movie Recommendation System using Machine Learning, Flask & TMDB API
+        </p>
+
+        <div class="stats">
+            🎥 {{ total_movies }}+ Movies Available |
+            🤖 Machine Learning Powered |
+            ⚡ Flask Web Application
+        </div>
+
+    </div>
+
+    <div class="search-box">
+
+        <form method="POST">
+
+            <input
+                list="movies"
+                name="movie"
+                placeholder="Search any movie (e.g. Avatar, Interstellar, Batman...)"
+                required
+            >
+
+            <datalist id="movies">
+                {% for movie in movies %}
+                    <option value="{{ movie }}">
+                {% endfor %}
+            </datalist>
+
+            <button id="recommendBtn" type="submit">
+                🎬 Get Recommendations
+            </button>
+
+        </form>
+
+    </div>
+
+    {% if recommendations %}
+
+    <h2 class="section-title">
+        Recommended For You
+    </h2>
+
+    <div class="selected-movie">
+        Recommendations based on:
+        <strong>{{ selected_movie }}</strong>
+    </div>
+
+    <div class="rec-count">
+        Showing {{ recommendations|length }} AI recommendations
+    </div>
+
+    <div class="movie-grid">
+
+        {% for movie in recommendations %}
+
+        <div class="movie-card">
+
+           <img
+    src="{{ movie.poster }}"
+    alt="{{ movie.title }}"
+    loading="lazy"
+    onerror="this.src='https://via.placeholder.com/300x450?text=No+Poster';"
+>
+
+            <div class="movie-info">
+
+                <div class="movie-title">
+                    {{ movie.title }}
+                </div>
+
+                <div class="movie-year">
+                    📅 {{ movie.year }}
+                </div>
+
+          
+                <div class="badge">
+                    🤖 AI Recommended
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+<div id="loading" style="display:none; text-align:center; margin-top:20px;">
+    <div class="spinner"></div>
+    <p>Fetching recommendations...</p>
+</div>
+
+<script>
+
+document.querySelector("form").addEventListener("submit", function(){
+
+    document.getElementById("recommendBtn").innerHTML =
+    "🔄 Finding Recommendations...";
+
+});
+
+<script>
+document.querySelector("form").addEventListener("submit", function () {
+    document.getElementById("loading").style.display = "block";
+});
+</script>
+
+</script>
+
+<footer>
+    MovieMind AI © 2026 |
+    Final Year Project |
+    Built with Python, Flask, Pandas, Scikit-Learn & TMDB API
+</footer>
+
+</body>
+</html>
