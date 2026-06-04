@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MovieMind AI | Intelligent Movie Recommendation System</title>
+<title>MovieMind AI | Netflix Style Recommender</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -19,137 +18,187 @@
 }
 
 body{
-    min-height:100vh;
-    background:linear-gradient(-45deg,#0f0c29,#302b63,#24243e,#0f172a);
-    background-size:400% 400%;
-    animation:gradientBG 12s ease infinite;
+    background:#141414;
     color:white;
-    padding:40px;
+    overflow-x:hidden;
 }
 
-@keyframes gradientBG{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+/* NAVBAR */
+
+.navbar{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:1000;
+    padding:20px 60px;
+    background:linear-gradient(to bottom,rgba(0,0,0,.9),transparent);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-.container{
-    max-width:1300px;
-    margin:auto;
+.logo{
+    font-size:32px;
+    font-weight:700;
+    color:#e50914;
 }
+
+.nav-links{
+    display:flex;
+    gap:30px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    font-size:15px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#e50914;
+}
+
+/* HERO */
 
 .hero{
-    text-align:center;
-    margin-bottom:35px;
+    height:90vh;
+    background:
+    linear-gradient(
+        to right,
+        rgba(0,0,0,.9),
+        rgba(0,0,0,.4)
+    ),
+    url("https://image.tmdb.org/t/p/original/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg");
+
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    align-items:center;
+    padding:0 80px;
 }
 
-.title{
-    font-size:4rem;
-    font-weight:700;
-    background:linear-gradient(90deg,#ffffff,#ff4d6d);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+.hero-content{
+    max-width:650px;
 }
 
-.subtitle{
-    margin-top:10px;
+.hero h1{
+    font-size:5rem;
+    margin-bottom:20px;
+}
+
+.hero p{
     font-size:18px;
+    line-height:1.8;
     color:#d1d5db;
+    margin-bottom:30px;
 }
 
-.stats{
-    margin-top:15px;
-    color:#94a3b8;
-    font-size:15px;
+.hero-buttons{
+    display:flex;
+    gap:15px;
+}
+
+.btn{
+    padding:14px 28px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:600;
+}
+
+.play-btn{
+    background:white;
+    color:black;
+}
+
+.info-btn{
+    background:rgba(109,109,110,.7);
+    color:white;
+}
+
+/* SEARCH */
+
+.search-section{
+    padding:50px 80px;
 }
 
 .search-box{
-    background:rgba(255,255,255,0.08);
-    backdrop-filter:blur(15px);
-    padding:25px;
-    border-radius:20px;
-    margin-bottom:45px;
-    box-shadow:0 8px 25px rgba(0,0,0,0.3);
+    background:#1f1f1f;
+    padding:30px;
+    border-radius:15px;
+}
+
+.search-box h2{
+    margin-bottom:20px;
+}
+
+form{
+    display:flex;
+    gap:15px;
 }
 
 input{
-    width:100%;
-    padding:15px;
+    flex:1;
+    padding:16px;
     border:none;
-    border-radius:12px;
-    font-size:15px;
-    margin-bottom:15px;
+    border-radius:8px;
+    font-size:16px;
     outline:none;
 }
 
 button{
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:12px;
     background:#e50914;
     color:white;
-    font-size:16px;
+    border:none;
+    padding:16px 30px;
+    border-radius:8px;
     font-weight:600;
     cursor:pointer;
-    transition:0.3s;
 }
 
 button:hover{
-    transform:translateY(-3px);
     background:#ff1f2f;
 }
 
+/* SECTION */
+
+.section{
+    padding:20px 80px 60px;
+}
+
 .section-title{
-    text-align:center;
-    margin-bottom:20px;
-    font-size:2rem;
-}
-
-.selected-movie{
-    text-align:center;
-    margin-bottom:12px;
-    color:#cbd5e1;
-}
-
-.rec-count{
-    text-align:center;
+    font-size:30px;
     margin-bottom:25px;
-    color:#94a3b8;
 }
+
+/* MOVIE GRID */
 
 .movie-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-    gap:30px;
-    margin-top:40px;
+    grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+    gap:25px;
 }
 
 .movie-card{
-    background:rgba(255,255,255,0.08);
-    backdrop-filter:blur(12px);
-    border-radius:18px;
+    background:#1f1f1f;
+    border-radius:12px;
     overflow:hidden;
-    transition:all 0.4s ease;
-    text-align:center;
-    box-shadow:0 8px 25px rgba(0,0,0,0.35);
+    transition:.4s;
     position:relative;
 }
 
 .movie-card:hover{
-    transform:translateY(-10px) scale(1.03);
-    box-shadow:0 15px 35px rgba(255,0,80,0.35);
+    transform:scale(1.08);
+    z-index:20;
+    box-shadow:0 20px 40px rgba(0,0,0,.6);
 }
 
 .movie-card img{
     width:100%;
-    height:340px;
+    height:380px;
     object-fit:cover;
-    transition:0.4s;
-}
-
-.movie-card:hover img{
-    transform:scale(1.08);
 }
 
 .movie-info{
@@ -157,121 +206,166 @@ button:hover{
 }
 
 .movie-title{
-    font-size:16px;
+    font-size:18px;
     font-weight:600;
-    line-height:1.5;
-    min-height:55px;
+    margin-bottom:10px;
 }
 
 .movie-year{
     color:#cbd5e1;
-    font-size:13px;
-    margin-top:5px;
+    margin-bottom:10px;
+}
+
+.rating{
+    color:#facc15;
+    margin-bottom:12px;
+}
+
+.overview{
+    color:#cbd5e1;
+    font-size:14px;
+    line-height:1.5;
 }
 
 .badge{
     display:inline-block;
-    margin-top:12px;
-    padding:6px 14px;
-    background:linear-gradient(90deg,#ff004f,#ff4d4d);
+    margin-top:15px;
+    background:#e50914;
+    padding:6px 12px;
     border-radius:20px;
     font-size:12px;
     font-weight:600;
 }
 
-.movie-card::before{
-    content:'';
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:linear-gradient(
-        to top,
-        rgba(0,0,0,0.7),
-        transparent
-    );
-    opacity:0;
-    transition:0.4s;
-}
-
-.movie-card:hover::before{
-    opacity:1;
-}
+/* FOOTER */
 
 footer{
-    margin-top:70px;
+    padding:50px;
     text-align:center;
-    padding:25px;
-    color:#94a3b8;
-    font-size:14px;
-    border-top:1px solid rgba(255,255,255,0.1);
+    color:#999;
+    border-top:1px solid #333;
+    margin-top:60px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero{
+    padding:40px;
+}
+
+.hero h1{
+    font-size:3rem;
+}
+
+.navbar{
+    padding:20px;
+}
+
+.search-section,
+.section{
+    padding:30px;
+}
+
+form{
+    flex-direction:column;
+}
+
 }
 
 </style>
 </head>
-
 <body>
 
-<div class="container">
+<!-- NAVBAR -->
 
-    <div class="hero">
+<div class="navbar">
 
-        <h1 class="title">
-            🎬 MovieMind AI
-        </h1>
+    <div class="logo">
+        MovieMind AI
+    </div>
 
-        <p class="subtitle">
-            Intelligent Movie Recommendation System using Machine Learning, Flask & TMDB API
+    <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Movies</a>
+        <a href="#">Trending</a>
+        <a href="#">AI Picks</a>
+    </div>
+
+</div>
+
+<!-- HERO -->
+
+<div class="hero">
+
+    <div class="hero-content">
+
+        <h1>INTERSTELLAR</h1>
+
+        <p>
+            A team of explorers travel through a wormhole in space
+            in an attempt to ensure humanity's survival.
         </p>
 
-        <div class="stats">
-            🎥 {{ total_movies }}+ Movies Available |
-            🤖 Machine Learning Powered |
-            ⚡ Flask Web Application
+        <div class="hero-buttons">
+
+            <button class="btn play-btn">
+                ▶ Explore Movies
+            </button>
+
+            <button class="btn info-btn">
+                More Info
+            </button>
+
         </div>
 
     </div>
 
+</div>
+
+<!-- SEARCH -->
+
+<div class="search-section">
+
     <div class="search-box">
+
+        <h2>Find Similar Movies</h2>
 
         <form method="POST">
 
             <input
                 list="movies"
                 name="movie"
-                placeholder="Search any movie (e.g. Avatar, Interstellar, Batman...)"
+                placeholder="Search a movie..."
                 required
             >
 
             <datalist id="movies">
                 {% for movie in movies %}
-                    <option value="{{ movie }}">
+                <option value="{{ movie }}">
                 {% endfor %}
             </datalist>
 
-            <button id="recommendBtn" type="submit">
-                🎬 Get Recommendations
+            <button type="submit">
+                Recommend
             </button>
 
         </form>
 
     </div>
 
-    {% if recommendations %}
+</div>
+
+<!-- RESULTS -->
+
+{% if recommendations %}
+
+<div class="section">
 
     <h2 class="section-title">
-        Recommended For You
+        Because You Watched {{ selected_movie }}
     </h2>
-
-    <div class="selected-movie">
-        Recommendations based on:
-        <strong>{{ selected_movie }}</strong>
-    </div>
-
-    <div class="rec-count">
-        Showing {{ recommendations|length }} AI recommendations
-    </div>
 
     <div class="movie-grid">
 
@@ -279,12 +373,11 @@ footer{
 
         <div class="movie-card">
 
-           <img
-    src="{{ movie.poster }}"
-    alt="{{ movie.title }}"
-    loading="lazy"
-    onerror="this.src='https://via.placeholder.com/300x450?text=No+Poster';"
->
+            <img
+                src="{{ movie.poster }}"
+                alt="{{ movie.title }}"
+                onerror="this.src='https://via.placeholder.com/300x450?text=No+Poster';"
+            >
 
             <div class="movie-info">
 
@@ -296,7 +389,18 @@ footer{
                     📅 {{ movie.year }}
                 </div>
 
-          
+                {% if movie.rating %}
+                <div class="rating">
+                    ⭐ {{ movie.rating }}
+                </div>
+                {% endif %}
+
+                {% if movie.overview %}
+                <div class="overview">
+                    {{ movie.overview }}
+                </div>
+                {% endif %}
+
                 <div class="badge">
                     🤖 AI Recommended
                 </div>
@@ -309,36 +413,12 @@ footer{
 
     </div>
 
-    {% endif %}
-
 </div>
 
-<div id="loading" style="display:none; text-align:center; margin-top:20px;">
-    <div class="spinner"></div>
-    <p>Fetching recommendations...</p>
-</div>
-
-<script>
-
-document.querySelector("form").addEventListener("submit", function(){
-
-    document.getElementById("recommendBtn").innerHTML =
-    "🔄 Finding Recommendations...";
-
-});
-
-<script>
-document.querySelector("form").addEventListener("submit", function () {
-    document.getElementById("loading").style.display = "block";
-});
-</script>
-
-</script>
+{% endif %}
 
 <footer>
-    MovieMind AI © 2026 |
-    Final Year Project |
-    Built with Python, Flask, Pandas, Scikit-Learn & TMDB API
+    MovieMind AI © 2026 | Built with Flask, Machine Learning & TMDB API
 </footer>
 
 </body>

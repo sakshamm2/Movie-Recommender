@@ -1,6 +1,3 @@
-from turtle import title
-
-
 def recommend(movie_name):
 
     try:
@@ -15,10 +12,10 @@ def recommend(movie_name):
         distances = similarity[idx]
 
         movie_list = sorted(
-    list(enumerate(distances)),
-    key=lambda x: x[1],
-    reverse=True
-)[1:11]
+            list(enumerate(distances)),
+            key=lambda x: x[1],
+            reverse=True
+        )[1:11]
 
         recommendations = []
 
@@ -26,9 +23,9 @@ def recommend(movie_name):
 
             full_title = movies.iloc[i[0]].title
 
-            year = ""
+            year = "N/A"
 
-            if "(" in full_title:
+            if "(" in full_title and ")" in full_title:
                 year = full_title.split("(")[-1].replace(")", "")
 
             poster = fetch_poster(full_title)
@@ -46,16 +43,7 @@ def recommend(movie_name):
     except Exception as e:
         print("ERROR:", e)
         return []
-    
+
+
 print("Movies loaded:", len(movies))
 print("Available example:", movies["title"].head(5).tolist())
-
-year = ""
-
-if "(" in title and ")" in title:
-    year = title.split("(")[-1].replace(")", "")
-  recommendations.append({
-    "title": title,
-    "year": title[-5:-1] if "(" in title else "N/A",
-    "poster": poster
-})
