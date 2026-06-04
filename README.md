@@ -76,4 +76,5 @@ Saksham Yadav
 
 GitHub: https://github.com/sakshamm2
 
-LinkedIn: Add your LinkedIn profile link here.
+LinkedIn: https://www.linkedin.com/in/saksham-yadav-047562250/
+
