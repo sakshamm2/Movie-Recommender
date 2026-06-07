@@ -49,18 +49,14 @@ Movie-Recommender/
 
 ## 📸 Screenshots
 
-Add screenshots of your homepage and recommendation results here.
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
 
-## 🔧 Installation
+### Search Movies
+![Search](screenshots/search.png)
 
-```bash
-git clone https://github.com/sakshamm2/Movie-Recommender.git
-cd Movie-Recommender
-
-pip install -r requirements.txt
-
-python app.py
-```
+### Recommendations
+![Recommendations](screenshots/recommendations.png)
 
 Open:
 
