@@ -1,18 +1,18 @@
-# 🎬 Movie Recommendation System
+# Movie Recommendation System
 
-A Netflix-inspired Movie Recommendation System built using Machine Learning, Flask, and the TMDB API. The application recommends similar movies based on content similarity and provides an engaging user experience with dynamic movie posters and a modern streaming-platform-style interface.
+A movie recommendation system built using **Machine Learning, Flask, and the TMDB API**. The application recommends similar movies using content-based filtering and displays movie posters, ratings, and other details through a streaming-platform-style web interface.
 
-## 🚀 Features
+## Features
 
-* 🎥 Content-Based Movie Recommendations
-* 🤖 Machine Learning Powered Recommendation Engine
-* 🖼️ Dynamic Movie Posters via TMDB API
-* ⭐ Movie Ratings & Details Integration
-* 🎨 Netflix-Inspired Modern UI
-* ⚡ Fast Flask Web Application
-* 📱 Responsive Design
+* Content-Based Movie Recommendations
+* Machine Learning Powered Recommendation Engine
+* Dynamic Movie Posters using the TMDB API
+* Movie Ratings and Details Integration
+* Netflix-Inspired User Interface
+* Flask Web Application
+* Responsive Design
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 * Python
 * Flask
@@ -24,53 +24,61 @@ A Netflix-inspired Movie Recommendation System built using Machine Learning, Fla
 * TMDB API
 * Git & GitHub
 
-## 📂 Project Structure
+## Project Structure
 
+```text
 Movie-Recommender/
 │
 ├── app.py
 ├── tmdb.py
 ├── requirements.txt
 ├── templates/
-│ └── index.html
+│   └── index.html
 ├── services/
-│ └── recommend.py
+│   └── recommend.py
 ├── data/
-│ └── movies.csv
+│   └── movies.csv
 └── README.md
+```
 
-## ⚙️ How It Works
+## How It Works
 
-1. User selects a movie.
+1. The user selects a movie.
 2. The recommendation engine calculates similarity scores using content-based filtering.
-3. Top similar movies are retrieved.
-4. TMDB API fetches posters and movie details.
-5. Results are displayed in a Netflix-style interface.
+3. The top similar movies are retrieved.
+4. The TMDB API is used to fetch movie posters and additional details.
+5. The results are displayed through a Netflix-style interface.
 
-## 📸 Screenshots
+## Screenshots
 
 ### Dashboard
+
 ![Dashboard](screenshots/dashboard.png)
 
 ### Search Movies
+
 ![Search](screenshots/search.png)
 
 ### Recommendations
+
 ![Recommendations](screenshots/recommendations.png)
 
-Open:
+## Running the Application
 
+After starting the Flask application, open the following address in your browser:
+
+```text
 http://127.0.0.1:5000
+```
 
-## 📌 Note
+## Note
 
-Large model files (*.pkl) are excluded from this repository due to GitHub file size limitations.
+Large model files (`*.pkl`) are excluded from this repository due to GitHub file size limitations.
 
-## 👨‍💻 Author
+## Author
 
-Saksham Yadav
+**Saksham Yadav**
 
 GitHub: https://github.com/sakshamm2
 
 LinkedIn: https://www.linkedin.com/in/saksham-yadav-047562250/
-
