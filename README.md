@@ -51,14 +51,6 @@ Movie-Recommender/
 
 ## Screenshots
 
-### Dashboard
-
-![Dashboard](screenshots/dashboard.png)
-
-### Search Movies
-
-![Search](screenshots/search.png)
-
 ### Recommendations
 
 ![Recommendations](screenshots/recommendations.png)
